@@ -9,8 +9,7 @@ st.set_page_config(
 
 # --- Set up login credentials ---
 USER_CREDENTIALS = {
-    "admin": "1234",
-    "gilberto": "pires"
+    "tonygee": "7070"
 }
 
 # --- Initialise session state ---
