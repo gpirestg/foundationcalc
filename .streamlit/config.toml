@@ -1,2 +1,5 @@
 [theme]
-base = "light"  # or "dark"
+base = "light"
+textColor = "#ffffff"
+font = "sans serif"
+
