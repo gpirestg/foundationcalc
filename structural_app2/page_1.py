@@ -77,12 +77,6 @@ def run():
             import numpy as np
             import sys
             ###################################################################################################################
-            #check for gekko performance
-            m = GEKKO(remote=False)
-            m.options.IMODE = 3
-            m.options.SOLVER = 1  # APOPT
-            m.options.DIAGLEVEL = 1
-            ###################################################################################################################
             # File paths and global variables
             #file_path = r'C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\structural_app2\loads_template'
             file_path = "/mount/src/foundationcalc/structural_app2/loads_template/"
@@ -682,13 +676,6 @@ def run():
             # END of TOM's code
             info_area.success("✅ Optimisation Complete")
             st.session_state.optimisation_started = False
-
-            ### Gekko performance
-            m.solve(disp=True)
-            with st.expander("Solver Output"):
-            st.text('\n'.join(m._server_response))
-            #######################################
-            
             if st.button("OK"):
                 st.rerun()
                 
