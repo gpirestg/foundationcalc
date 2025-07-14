@@ -9,7 +9,8 @@ def run():
     st.title("Loads Template File")
     
     # Define folder path
-    folder_path = Path(r"C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\structural_app2\loads_template")
+    #folder_path = Path(r"C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\structural_app2\loads_template")
+    folder_path = "/mount/src/foundationcalc/structural_app2/loads_template/"
     files = list(folder_path.glob("*"))
 
     #st.set_page_config(layout="wide")
