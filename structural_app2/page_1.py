@@ -107,11 +107,14 @@ def run():
                     pd.DataFrame: DataFrame with optimized dimensions (X, X, Z) and calculated e_x for each load case.
                 """
                 results = []
-
+                # new line
+                temp_dir = tempfile.gettempdir()  # safe temp folder on Streamlit Cloud
+                #
                 try:
                     for _, row in loadcases_df.iterrows():
                         # Initialize Gekko model
                         m = GEKKO(remote=False)
+                        m.path = temp_dir  # << Add this to ensure it writes in a safe place
                         m.options.SOLVER = 3  # Use IPOPT solver
 
                         # Define variables for foundation dimensions
