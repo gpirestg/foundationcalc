@@ -62,6 +62,8 @@ def run():
         #with st.spinner("Optimising..."):
             info_area = st.empty()
             progress_area = st.empty()
+            error_area = st.empty()
+            error_area.error("No Errors")
             info_area.info("✅ Optimisation Started")
             time.sleep(1)
             ###########################################################################################################################    
@@ -170,7 +172,8 @@ def run():
 
                 except Exception as e:
                     print(f"Error in optimization: {e}")
-                    progress_area.info(f"Error in optimization: {e}")
+                    #progress_area.info(f"Error in optimization: {e}")
+                    error_area.error(f"Error in optimization: {e}")
                     return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
                 # Convert results to a DataFrame
