@@ -267,7 +267,8 @@ def run():
 
                 except Exception as e:
                     print(f"Error in optimization: {e}")
-                    progress_area.info(f"Error in optimization: {e}")
+                    #progress_area.info(f"Error in optimization: {e}")
+                    error_area.error(f"Error in optimization: {e}")
                     return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
                 # Convert results to a DataFrame
@@ -341,7 +342,9 @@ def run():
 
                 except Exception as e:
                     print(f"Error in optimization: {e}")
-                    progress_area.info(f"Error in optimization: {e}")
+                    #progress_area.info(f"Error in optimization: {e}")
+                    error_area.error(f"Error in optimization: {e}")
+                    
                     return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
                 # Convert results to a DataFrame
@@ -422,7 +425,8 @@ def run():
 
                 except Exception as e:
                     print(f"Error in optimization: {e}")
-                    progress_area.info("Error in optimization: {e}")
+                    #progress_area.info("Error in optimization: {e}")
+                    error_area.error(f"Error in optimization: {e}")
                     return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
                 # Convert results to a DataFrame
@@ -472,7 +476,8 @@ def run():
                             progress_area.info(f"No feasible solution for inside middle third optimization for {name}.")
                     except Exception as e:
                         print(f"Error in inside middle third optimization for {name}: {e}")
-                        progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                        #progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                        error_area.error(f"Error in inside middle third optimization for {name}: {e}")
 
                     # Run outside middle third optimization
                     try:
@@ -487,10 +492,12 @@ def run():
                             }
                         else:
                             print(f"No feasible solution for outside middle third optimization for {name}.")
-                            progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
+                            #progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
+                            error_area.error(f"No feasible solution for outside middle third optimization for {name}.")
                     except Exception as e:
                         print(f"Error in outside middle third optimization for {name}: {e}")
-                        progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                        #progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                        error_area.error(f"Error in outside middle third optimization for {name}: {e}")
 
                     # Append the combined results
                     all_results.append({
@@ -556,7 +563,8 @@ def run():
                             progress_area.info(f"No feasible solution for inside middle third optimization for {name}.")
                     except Exception as e:
                         print(f"Error in inside middle third optimization for {name}: {e}")
-                        progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                        #progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                        error_area.error(f"Error in inside middle third optimization for {name}: {e}")
 
                     # Run outside middle third optimization
                     try:
@@ -576,7 +584,8 @@ def run():
                             progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
                     except Exception as e:
                         print(f"Error in outside middle third optimization for {name}: {e}")
-                        progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                        #progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                        error_area.error(f"Error in outside middle third optimization for {name}: {e}")
 
                     # Append the combined results
                     all_results.append({
