@@ -63,7 +63,7 @@ def run():
             info_area = st.empty()
             progress_area = st.empty()
             error_area = st.empty()
-            error_area.error("No Errors")
+            #error_area.error("No Errors")
             info_area.info("✅ Optimisation Started")
             time.sleep(1)
             ###########################################################################################################################    
