@@ -250,6 +250,12 @@ def run():
 
                         # Solve model
                         m.options.IMODE = 3  # Steady state optimization
+                        ############################################################
+                        m.options.SOLVER = 3           # IPOPT
+                        m.options.MAX_ITER = 500       # more iterations
+                        m.options.TIME_SHIFT = 0       # prevent time-related errors
+                        m.options.DIAGLEVEL = 0        # reduce logs
+                        ############################################################
                         m.solve(disp=False)
 
                         # Extract results
@@ -330,6 +336,12 @@ def run():
 
                         # Solve optimization
                         m.options.IMODE = 3  # Steady state optimization
+                        ############################################################
+                        m.options.SOLVER = 3           # IPOPT
+                        m.options.MAX_ITER = 500       # more iterations
+                        m.options.TIME_SHIFT = 0       # prevent time-related errors
+                        m.options.DIAGLEVEL = 0        # reduce logs
+                        ############################################################
                         m.solve(disp=False)
 
                         # Extract optimized results
@@ -408,6 +420,12 @@ def run():
 
                         # Solve optimization
                         m.options.IMODE = 3  # Steady state optimization
+                        ############################################################
+                        m.options.SOLVER = 3           # IPOPT
+                        m.options.MAX_ITER = 500       # more iterations
+                        m.options.TIME_SHIFT = 0       # prevent time-related errors
+                        m.options.DIAGLEVEL = 0        # reduce logs
+                        ############################################################
                         m.solve(disp=False)
 
                         # Extract optimized results
