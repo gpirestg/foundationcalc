@@ -19,20 +19,6 @@ def generate_dummy_loadcases(n):
 # === Dummy Gekko Function (simple parabola min) ===
 def run_gekko_case_old(p, m):
     m_gekko = GEKKO(remote=False)
-    x = m_gekko.Var(value=1.0, lb=0.1, ub=10)
-    m_gekko.Equation(p * x**2 + m / x == 150)
-    m_gekko.Obj(x**2)
-    m_gekko.options.SOLVER = 1
-    m_gekko.options.IMODE = 3
-    m_gekko.options.MAX_TIME = 20  # limit solve time
-    try:
-        m_gekko.solve(disp=False)
-        return x.value[0]
-    except Exception as e:
-        return f"Error: {e}"
-    
-def run_gekko_case(p, m):
-    m_gekko = GEKKO(remote=False)
     
     x = m_gekko.Var(value=1.0, lb=0.1, ub=10)
     
@@ -49,6 +35,28 @@ def run_gekko_case(p, m):
         return round(x.value[0], 4)
     except Exception as e:
         return f"Error: {e}"
+    
+def run_gekko_case(p, m):
+    m_gekko = GEKKO(remote=False)
+    x = m_gekko.Var(value=1.0, lb=0.1, ub=10)
+
+    # Constraint: keep some workload
+    m_gekko.Equation(x**2 + 0.1*x >= 1.5)
+
+    # Objective: still simple
+    target = 3 + (p + m) % 5
+    m_gekko.Obj((x - target)**2)
+
+    m_gekko.options.SOLVER = 1
+    m_gekko.options.IMODE = 3
+    m_gekko.options.MAX_TIME = 10
+
+    try:
+        m_gekko.solve(disp=False)
+        return round(x.value[0], 4)
+    except Exception as e:
+        return f"Error: {e}"
+
 
 
 # === RUN LOGIC ===
