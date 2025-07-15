@@ -63,6 +63,7 @@ def run():
             info_area = st.empty()
             progress_area = st.empty()
             error_area = st.empty()
+            gekko_area = st.empty()
             #error_area.error("No Errors")
             info_area.info("✅ Optimisation Started")
             time.sleep(1)
@@ -160,6 +161,7 @@ def run():
                         m.solve(disp=False)
                         if m.options.APPSTATUS != 1:
                             raise Exception("Solver failed: no feasible solution found")
+                            gekko_area.info("ERROR: Solver failed: no feasible solution found")
 
 
                         # Extract results
@@ -257,6 +259,9 @@ def run():
                         m.options.DIAGLEVEL = 0        # reduce logs
                         ############################################################
                         m.solve(disp=False)
+                        if m.options.APPSTATUS != 1:
+                            raise Exception("Solver failed: no feasible solution found")
+                            gekko_area.info("ERROR: Solver failed: no feasible solution found")
 
                         # Extract results
                         Y_opt = Y.value[0]
@@ -343,6 +348,9 @@ def run():
                         m.options.DIAGLEVEL = 0        # reduce logs
                         ############################################################
                         m.solve(disp=False)
+                        if m.options.APPSTATUS != 1:
+                            raise Exception("Solver failed: no feasible solution found")
+                            gekko_area.info("ERROR: Solver failed: no feasible solution found")
 
                         # Extract optimized results
                         X_opt = X.value[0]
@@ -427,6 +435,9 @@ def run():
                         m.options.DIAGLEVEL = 0        # reduce logs
                         ############################################################
                         m.solve(disp=False)
+                        if m.options.APPSTATUS != 1:
+                            raise Exception("Solver failed: no feasible solution found")
+                            gekko_area.info("ERROR: Solver failed: no feasible solution found")
 
                         # Extract optimized results
                         X_opt = X.value[0]
