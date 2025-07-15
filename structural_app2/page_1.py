@@ -152,6 +152,9 @@ def run():
                         # Solve model
                         m.options.IMODE = 3  # Steady state optimization
                         m.solve(disp=False)
+                        if m.options.APPSTATUS != 1:
+                            raise Exception("Solver failed: no feasible solution found")
+
 
                         # Extract results
                         X_opt = X.value[0]
