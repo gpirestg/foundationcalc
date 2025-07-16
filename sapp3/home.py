@@ -3,100 +3,152 @@ import pandas as pd
 from gekko import GEKKO
 import numpy as np
 
-st.set_page_config(layout="wide")
+# Set a simple username and password (you could improve this later)
+USERNAME = "admin"
+PASSWORD = "1234"
 
-# === INPUT LAYOUT ===
-st.subheader("Optimisation Parameters")
-col1, col2, col3 = st.columns(3)
-with col1:
-    q_max = st.number_input("Maximum Bearing Pressure (q_max)", value=150.0)
-    X_min = st.number_input("Min X dimension (X_min)", value=1.0)
-    X_max = st.number_input("Max X dimension (X_max)", value=150.0)
+# Initialize session state for login
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
 
-with col2:
-    Z_min = st.number_input("Min Z dimension (Z_min)", value=0.75)
-    Z_max = st.number_input("Max Z dimension (Z_max)", value=150.0)
-    Y_min = st.number_input("Min Y dimension (Y_min)", value=1.0)
+# === LOGIN PAGE ===
+if not st.session_state.authenticated:
+    # Only show background and logo during login
+    st.markdown("""
+        <style>
+        .stApp {
+            background-image: url("https://www.tonygee.com/wp-content/uploads/2025/01/p.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        label {
+            color: white !important;
+            font-weight: bold;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
-with col3:
-    Y_max = st.number_input("Max Y dimension (Y_max)", value=150.0)
-    pQ = st.number_input("Load factor (pQ)", value=1.0)
-    FoS = st.number_input("Factor of Safety (FoS)", value=1.25)
+    st.markdown("""
+        <div style="text-align: center; margin-top: 10px;">
+            <img src="https://www.tonygee.com/wp-content/uploads/2021/06/SocialImg.jpg"
+                 style="width: 200px; max-width: 90%; height: auto; transform: translateX(-10px);">
+        </div>
+        """, unsafe_allow_html=True)
 
-u = st.number_input("Friction Coefficient (u)", value=0.45)
-Square = st.checkbox("Use square optimisation (otherwise rectangular)", value=True)
+    st.markdown("<h1 style='color:white; text-align:center;'>Login Page</h1>", unsafe_allow_html=True)
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
 
-# === LOADS TABLE LAYOUT ====
-st.subheader("Loads Table")
+    if st.button("Login"):
+        if username == USERNAME and password == PASSWORD:
+            st.session_state.authenticated = True
+            st.success("Logged in successfully.")
+            st.rerun()
+        else:
+            st.error("Invalid credentials")
 
-# Column headers
-columns = [
-    "Name",
-    "Loadcase",
-    "Vertical Fz (kN)",
-    "Beneficial Vertical (kN)",
-    "⊥ to Span, Fx (kN)",
-    "|| to Span, Fy (kN)",
-    "Moment about ⊥, Mx (kNm)",
-    "Moment about ||, My (kNm)"
-]
+# === MAIN APP (after login) ===
+if st.session_state.authenticated:
+    st.set_page_config(layout="wide")
 
-# Load hidden test data
-@st.cache_data
-def load_sample_data():
-    df = pd.read_excel("/mount/src/foundationcalc/sapp3/data_samples.xlsx", sheet_name="data_samples")
-    df.columns = df.columns.str.strip()
-    return df
+    # === INPUT LAYOUT ===
+    st.subheader("Optimisation Parameters")
+    acol1, acol2, acol3 = st.columns(3)
+    with acol1:
+        col1, col2= st.columns(2)
+        with col1:
+            q_max = st.number_input("Maximum Bearing Pressure (q_max)", value=150.0)
+            pQ = st.number_input("Load factor (pQ)", value=1.0)
+            FoS = st.number_input("Factor of Safety (FoS)", value=1.25)
+            u = st.number_input("Friction Coefficient (u)", value=0.45)
+            Square = st.checkbox("Use square optimisation (otherwise rectangular)", value=True)       
+        with col2:
+            X_min = st.number_input("Min X dimension (X_min)", value=1.0)
+            X_max = st.number_input("Max X dimension (X_max)", value=150.0) 
+            Y_min = st.number_input("Min Y dimension (Y_min)", value=1.0)
+            Y_max = st.number_input("Max Y dimension (Y_max)", value=150.0)             
+            Z_min = st.number_input("Min Z dimension (Z_min)", value=0.75)
+            Z_max = st.number_input("Max Z dimension (Z_max)", value=150.0)
+    with acol2:
+        st.text("Diagram")
+        st.image("image.png")
+    with acol3:
+        pass
+    
 
-sample_data = load_sample_data()
-sample_data = sample_data[[col for col in columns if col in sample_data.columns]]
-#st.write("Sample Data Columns:", sample_data.columns.tolist())
+    # === LOADS TABLE LAYOUT ====
+    st.subheader("Loads Table")
 
-# Init table
-if "table_data" not in st.session_state:
-    st.session_state.table_data = pd.DataFrame(columns=columns)
+    # Column headers
+    columns = [
+        "Name",
+        "Loadcase",
+        "Vertical Fz (kN)",
+        "Beneficial Vertical (kN)",
+        "⊥ to Span, Fx (kN)",
+        "|| to Span, Fy (kN)",
+        "Moment about ⊥, Mx (kNm)",
+        "Moment about ||, My (kNm)"
+    ]
 
-# Insert test row
-if st.button("💡 Insert Random Row"):
-    random_row = sample_data.sample(1)
-    st.session_state.table_data = pd.concat(
-        [st.session_state.table_data, random_row],
-        ignore_index=True
+    # Load hidden test data
+    @st.cache_data
+    def load_sample_data():
+        df = pd.read_excel("data_samples.xlsx", sheet_name="data_samples")
+        df.columns = df.columns.str.strip()
+        return df
+
+    sample_data = load_sample_data()
+    sample_data = sample_data[[col for col in columns if col in sample_data.columns]]
+    #st.write("Sample Data Columns:", sample_data.columns.tolist())
+
+    # Init table
+    if "table_data" not in st.session_state:
+        st.session_state.table_data = pd.DataFrame(columns=columns)
+
+    # Insert test row
+    if st.button("💡 Insert Random Row"):
+        random_row = sample_data.sample(1)
+        st.session_state.table_data = pd.concat(
+            [st.session_state.table_data, random_row],
+            ignore_index=True
+        )
+
+    # Editable table
+    edited_df = st.data_editor(
+        st.session_state.table_data,
+        num_rows="dynamic",
+        use_container_width=True
     )
+    st.session_state.table_data = edited_df
 
-# Editable table
-edited_df = st.data_editor(
-    st.session_state.table_data,
-    num_rows="dynamic",
-    use_container_width=True
-)
-st.session_state.table_data = edited_df
+    # Confirm and show final table
+    if st.button("✅ Confirm Final Table"):
+        st.session_state.accepted_table = st.session_state.table_data.copy()
+        st.session_state.optim_ready = True  # Show optimisation button
+        #st.success("✅ Table confirmed!")
 
-# Confirm and show final table
-if st.button("✅ Confirm and Display Table"):
-    st.session_state.accepted_table = st.session_state.table_data.copy()
-    st.session_state.optim_ready = True  # Show optimisation button
-    #st.success("✅ Table confirmed!")
+    # Initialise flag only once
+    if "optimisation_started" not in st.session_state:
+        st.session_state.optimisation_started = False
 
-# Initialise flag only once
-if "optimisation_started" not in st.session_state:
-    st.session_state.optimisation_started = False
+    # Show confirmed table and optimisation button
+    if st.session_state.get("optim_ready", False):
+        st.write("### Final Loads Table")
+        # Assign the confirmed edited table to a variable
+        table = st.session_state.accepted_table.copy()
+        # Show it in the UI
+        st.dataframe(table)
 
-# Show confirmed table and optimisation button
-if st.session_state.get("optim_ready", False):
-    st.write("### Final Loads Table")
-    # Assign the confirmed edited table to a variable
-    table = st.session_state.accepted_table.copy()
-    # Show it in the UI
-    st.dataframe(table)
+        if st.button("🚀 Start Optimisation"):
+            st.session_state.optimisation_started = True
 
-    if st.button("🚀 Start Optimisation"):
-        st.session_state.optimisation_started = True
-
-# Hide legend and image after optimisation has started
-if not st.session_state.get("optimisation_started", False):
-    #st.caption("**Diagram**")
-    st.image("/mount/src/foundationcalc/sapp3/image.png", width=500, caption="**Diagram**")
+    # Hide image after optimisation has started
+    if not st.session_state.get("optimisation_started", False):
+        #st.caption("**Diagram**")
+        #st.image("image.png", width=500, caption="**Diagram**")
+        pass
 
 # Actual optimisation logic (after button click)
 if st.session_state.get("optimisation_started", False):
