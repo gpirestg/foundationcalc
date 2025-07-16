@@ -118,7 +118,7 @@ if st.session_state.get("optimisation_started", False):
     optimised_output_path = '/mount/src/foundationcalc/sapp3/optimised_result.xlsx'
     #loads_sheet_name = 'Loading Summary'
     #loads_sheet_name = sheet
-    ###################################################################################################################
+###################################################################################################################
     # Import excel into pandas dataframe
     # Load data from the specific sheet into a DataFrame
     #table = pd.read_excel(loads_file_path, sheet_name=loads_sheet_name)
@@ -139,7 +139,6 @@ if st.session_state.get("optimisation_started", False):
             pd.DataFrame: DataFrame with optimized dimensions (X, X, Z) and calculated e_x for each load case.
         """
         results = []
-
         try:
             for _, row in loadcases_df.iterrows():
                 # Initialize Gekko model
@@ -160,6 +159,7 @@ if st.session_state.get("optimisation_started", False):
                 Mx = m.Param(value=row['Moment about ⊥, Mx (kNm)'])
                 My = m.Param(value=row['Moment about ||, My (kNm)'])
                 name = row.get('Name', None)  # Optional: Get the 'Name' column if it exist
+
 
                 # Calculate effective foundation weight
                 effective_Fz = m.Intermediate(Fz + (X * X * Z * 24))
@@ -203,7 +203,8 @@ if st.session_state.get("optimisation_started", False):
 
         except Exception as e:
             print(f"Error in optimization: {e}")
-            progress_area.info(f"Error in optimization: {e}")
+            #progress_area.info(f"Error in optimization: {e}")
+            error_area.error(f"Error in optimization: {e}")
             return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
         # Convert results to a DataFrame
@@ -248,6 +249,7 @@ if st.session_state.get("optimisation_started", False):
                 Mx = m.Param(value=row['Moment about ⊥, Mx (kNm)'])
                 My = m.Param(value=row['Moment about ||, My (kNm)'])
                 name = row.get('Name', None)  # Optional: Get the 'Name' column if it exist
+
 
                 # Calculate effective foundation weight
                 effective_Fz = m.Intermediate(Fz + (X * Y * Z * 24))
@@ -296,7 +298,8 @@ if st.session_state.get("optimisation_started", False):
 
         except Exception as e:
             print(f"Error in optimization: {e}")
-            progress_area.info(f"Error in optimization: {e}")
+            #progress_area.info(f"Error in optimization: {e}")
+            error_area.error(f"Error in optimization: {e}")
             return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
         # Convert results to a DataFrame
@@ -370,7 +373,9 @@ if st.session_state.get("optimisation_started", False):
 
         except Exception as e:
             print(f"Error in optimization: {e}")
-            progress_area.info(f"Error in optimization: {e}")
+            #progress_area.info(f"Error in optimization: {e}")
+            error_area.error(f"Error in optimization: {e}")
+            
             return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
         # Convert results to a DataFrame
@@ -451,7 +456,8 @@ if st.session_state.get("optimisation_started", False):
 
         except Exception as e:
             print(f"Error in optimization: {e}")
-            progress_area.info("Error in optimization: {e}")
+            #progress_area.info("Error in optimization: {e}")
+            error_area.error(f"Error in optimization: {e}")
             return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
         # Convert results to a DataFrame
@@ -501,7 +507,8 @@ if st.session_state.get("optimisation_started", False):
                     progress_area.info(f"No feasible solution for inside middle third optimization for {name}.")
             except Exception as e:
                 print(f"Error in inside middle third optimization for {name}: {e}")
-                progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                #progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                error_area.error(f"Error in inside middle third optimization for {name}: {e}")
 
             # Run outside middle third optimization
             try:
@@ -516,10 +523,12 @@ if st.session_state.get("optimisation_started", False):
                     }
                 else:
                     print(f"No feasible solution for outside middle third optimization for {name}.")
-                    progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
+                    #progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
+                    error_area.error(f"No feasible solution for outside middle third optimization for {name}.")
             except Exception as e:
                 print(f"Error in outside middle third optimization for {name}: {e}")
-                progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                #progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                error_area.error(f"Error in outside middle third optimization for {name}: {e}")
 
             # Append the combined results
             all_results.append({
@@ -585,7 +594,8 @@ if st.session_state.get("optimisation_started", False):
                     progress_area.info(f"No feasible solution for inside middle third optimization for {name}.")
             except Exception as e:
                 print(f"Error in inside middle third optimization for {name}: {e}")
-                progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                #progress_area.info(f"Error in inside middle third optimization for {name}: {e}")
+                error_area.error(f"Error in inside middle third optimization for {name}: {e}")
 
             # Run outside middle third optimization
             try:
@@ -605,7 +615,8 @@ if st.session_state.get("optimisation_started", False):
                     progress_area.info(f"No feasible solution for outside middle third optimization for {name}.")
             except Exception as e:
                 print(f"Error in outside middle third optimization for {name}: {e}")
-                progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                #progress_area.info(f"Error in outside middle third optimization for {name}: {e}")
+                error_area.error(f"Error in outside middle third optimization for {name}: {e}")
 
             # Append the combined results
             all_results.append({
@@ -693,10 +704,8 @@ if st.session_state.get("optimisation_started", False):
                     #sys.exit()
     ###################################################################################################################
     ###################################################################################################################
-    # END of TOM's code     
+    # END of TOM's code
     info_area.success("✅ Optimisation Complete")
     st.session_state.optimisation_started = False
     if st.button("OK"):
         st.rerun()
-
-
