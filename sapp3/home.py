@@ -96,7 +96,7 @@ if st.session_state.get("optim_ready", False):
 # Hide legend and image after optimisation has started
 if not st.session_state.get("optimisation_started", False):
     #st.caption("**Diagram**")
-    st.image("image.png", width=500, caption="**Diagram**")
+    st.image("/mount/src/foundationcalc/sapp3/image.png", width=500, caption="**Diagram**")
 
 # Actual optimisation logic (after button click)
 if st.session_state.get("optimisation_started", False):
