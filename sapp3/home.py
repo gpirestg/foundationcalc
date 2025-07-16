@@ -3,6 +3,8 @@ import pandas as pd
 from gekko import GEKKO
 import numpy as np
 
+st.set_page_config(layout="centered")
+
 # Set a simple username and password (you could improve this later)
 USERNAME = "admin"
 PASSWORD = "1234"
