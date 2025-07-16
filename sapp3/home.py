@@ -44,7 +44,7 @@ columns = [
 # Load hidden test data
 @st.cache_data
 def load_sample_data():
-    df = pd.read_excel("data_samples.xlsx", sheet_name="data_samples")
+    df = pd.read_excel("/mount/src/foundationcalc/sapp3/data_samples.xlsx", sheet_name="data_samples")
     df.columns = df.columns.str.strip()
     return df
 
@@ -114,7 +114,8 @@ if st.session_state.get("optimisation_started", False):
     #file_path = r'C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\structural_app2\loads_template'
     #loads_file_path = r'C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\Rev01\foundation_loadsv2.xlsx'
     #loads_file_path = os.path.join(file_path, template)
-    optimised_output_path = r'C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\sapp3\optimised_result.xlsx'
+    #optimised_output_path = r'C:\Users\GDP\OneDrive - Tony Gee and Partners LLP\Documents\Automation\__2025__Digital__\DEV - WIP\P&E Streamlit Toms App\sapp3\optimised_result.xlsx'
+    optimised_output_path = '/mount/src/foundationcalc/sapp3/optimised_result.xlsx'
     #loads_sheet_name = 'Loading Summary'
     #loads_sheet_name = sheet
     ###################################################################################################################
