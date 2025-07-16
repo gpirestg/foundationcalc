@@ -97,7 +97,7 @@ if st.session_state.authenticated:
     # Load hidden test data
     @st.cache_data
     def load_sample_data():
-        df = pd.read_excel("data_samples.xlsx", sheet_name="data_samples")
+        df = pd.read_excel("/mount/src/foundationcalc/sapp3/data_samples.xlsx", sheet_name="data_samples")
         df.columns = df.columns.str.strip()
         return df
 
