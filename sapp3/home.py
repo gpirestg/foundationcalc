@@ -3,7 +3,7 @@ import pandas as pd
 from gekko import GEKKO
 import numpy as np
 
-st.set_page_config(layout="centered")
+st.set_page_config(layout="wide")
 
 # Set a simple username and password (you could improve this later)
 USERNAME = "admin"
@@ -52,7 +52,7 @@ if not st.session_state.authenticated:
 
 # === MAIN APP (after login) ===
 if st.session_state.authenticated:
-    st.set_page_config(layout="wide")
+    #st.set_page_config(layout="wide")
     st.title("📊 Structural Foundation Optimisation Tool")
     # === INPUT LAYOUT ===
     st.subheader("Optimisation Parameters")
