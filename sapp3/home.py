@@ -53,7 +53,7 @@ if not st.session_state.authenticated:
 # === MAIN APP (after login) ===
 if st.session_state.authenticated:
     st.set_page_config(layout="wide")
-
+    st.title("📊 Structural Foundation Optimisation Tool")
     # === INPUT LAYOUT ===
     st.subheader("Optimisation Parameters")
     acol1, acol2, acol3 = st.columns(3)
