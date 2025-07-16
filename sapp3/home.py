@@ -74,7 +74,7 @@ if st.session_state.authenticated:
             Z_max = st.number_input("Max Z dimension (Z_max)", value=150.0)
     with acol2:
         st.text("Diagram")
-        st.image("image.png")
+        st.image("/mount/src/foundationcalc/sapp3/image.png")
     with acol3:
         pass
     
