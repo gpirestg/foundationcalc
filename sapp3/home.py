@@ -168,7 +168,7 @@ if st.session_state.authenticated:
 
         def log(message):
             # Append new line to the full log
-            message = message.replace(' ', '')
+            #message = message.replace(' ', '')
             st.session_state.log_text += f"{message}\n"
             
             # Display in a single code block (like terminal output)
@@ -274,7 +274,7 @@ if st.session_state.authenticated:
 
             except Exception as e:
                 print(f"Error in optimization: {e}")
-                log(f"Error in optimization: {e}")
+                log(f"Error in optimization!!!")
                 #progress_area.info(f"Error in optimization: {e}")
                 return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
@@ -368,7 +368,7 @@ if st.session_state.authenticated:
 
             except Exception as e:
                 print(f"Error in optimization: {e}")
-                log(f"Error in optimization: {e}")
+                log(f"Error in optimization!!!")
                 #progress_area.info(f"Error in optimization: {e}")
                 return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
@@ -443,7 +443,7 @@ if st.session_state.authenticated:
 
             except Exception as e:
                 print(f"Error in optimization: {e}")
-                log(f"Error in optimization: {e}")
+                log(f"Error in optimization!!!")
                 #progress_area.info(f"Error in optimization: {e}")
                 return pd.DataFrame(columns=['X', 'X2', 'Z', 'e_x'])
 
@@ -525,7 +525,7 @@ if st.session_state.authenticated:
 
             except Exception as e:
                 print(f"Error in optimization: {e}")
-                log(f"Error in optimization: {e}")
+                log(f"Error in optimization!!!")
                 #progress_area.info("Error in optimization: {e}")
                 return pd.DataFrame(columns=['X', 'Y', 'Z', 'e_x','e_y'])
 
