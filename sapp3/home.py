@@ -168,6 +168,7 @@ if st.session_state.authenticated:
 
         def log(message):
             # Append new line to the full log
+            message = message.replace('\r', '')
             st.session_state.log_text += f"{message}\n"
             
             # Display in a single code block (like terminal output)
