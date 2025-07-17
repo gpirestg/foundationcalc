@@ -554,7 +554,7 @@ if st.session_state.authenticated:
 
             for name, group in grouped:
                 print(f"Processing load cases for {name}...")
-                log(f"Processing load cases for {name}...")
+                log(f">Processing load cases for {name}...")
                 #progress_area.info(f"Processing load cases for {name}...")
 
                 # Initialize result placeholders
@@ -641,7 +641,7 @@ if st.session_state.authenticated:
 
             for name, group in grouped:
                 print(f"Processing load cases for {name}...")
-                log(f"Processing load cases for {name}...")
+                log(f">Processing load cases for {name}...")
                 #progress_area.info(f"Processing load cases for {name}...")
 
                 # Initialize result placeholders
