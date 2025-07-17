@@ -171,7 +171,7 @@ if st.session_state.authenticated:
             st.session_state.log_text += f"{message}\n"
             
             # Display in a single code block (like terminal output)
-            log_placeholder.code(st.session_state.log_text, language='bash')
+            log_placeholder.code(st.session_state.log_text, language='text')
         
         st.session_state.log_text = ""
         log("Starting process...")
