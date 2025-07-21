@@ -6,8 +6,8 @@ import numpy as np
 st.set_page_config(layout="wide")
 
 # Set a simple username and password (you could improve this later)
-USERNAME = "admin"
-PASSWORD = "1234"
+USERNAME = "tgapp"
+PASSWORD = "1974"
 
 # Initialize session state for login
 if "authenticated" not in st.session_state:
