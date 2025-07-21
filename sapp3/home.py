@@ -214,7 +214,8 @@ if st.session_state.authenticated:
             try:
                 for _, row in loadcases_df.iterrows():
                     # Initialize Gekko model
-                    m = GEKKO(remote=False)
+                    #m = GEKKO(remote=False)
+                    m = GEKKO(remote=True)
                     m.options.SOLVER = 3  # Use IPOPT solver
 
                     # Define variables for foundation dimensions
@@ -302,7 +303,8 @@ if st.session_state.authenticated:
             try:
                 for _, row in loadcases_df.iterrows():
                     # Initialize Gekko model
-                    m = GEKKO(remote=False)
+                    #m = GEKKO(remote=False)
+                    m = GEKKO(remote=True)
                     m.options.SOLVER = 3  # Use IPOPT solver
 
                     # Define variables for foundation dimensions
@@ -403,7 +405,8 @@ if st.session_state.authenticated:
                     name = row.get('Name', None)  # Optional: Get the 'Name' column if it exist
 
                     # Initialize GEKKO model
-                    m = GEKKO(remote=False)
+                    #m = GEKKO(remote=False)
+                    m = GEKKO(remote=True)
                     m.options.SOLVER = 3  # Use IPOPT solver
 
                     # Define variables for foundation dimensions
@@ -478,7 +481,8 @@ if st.session_state.authenticated:
                     name = row.get('Name', None)  # Optional: Get the 'Name' column if it exist
 
                     # Initialize GEKKO model
-                    m = GEKKO(remote=False)
+                    #m = GEKKO(remote=False)
+                    m = GEKKO(remote=True)
                     m.options.SOLVER = 3  # Use IPOPT solver
 
                     # Define variables for foundation dimensions
