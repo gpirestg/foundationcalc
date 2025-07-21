@@ -39,7 +39,7 @@ if not st.session_state.authenticated:
         """, unsafe_allow_html=True)
 
     st.markdown("<h1 style='color:white; text-align:center;'>Login Page</h1>", unsafe_allow_html=True)
-    username = st.text_input("Usernames")
+    username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
     if st.button("Login"):
