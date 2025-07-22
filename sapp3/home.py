@@ -110,12 +110,30 @@ if st.session_state.authenticated:
         st.session_state.table_data = pd.DataFrame(columns=columns)
 
     # Insert test row
-    if st.button("💡 Insert Random Row"):
-        random_row = sample_data.sample(1)
-        st.session_state.table_data = pd.concat(
-            [st.session_state.table_data, random_row],
-            ignore_index=True
-        )
+    col1, col2, col3 = st.columns([1,2,5])
+    with col1:
+        if st.button("💡 Insert Random Row"):
+            random_row = sample_data.sample(1)
+            st.session_state.table_data = pd.concat(
+                [st.session_state.table_data, random_row],
+                ignore_index=True
+            )
+
+    # CSV upload
+    with col2:
+        #uploaded_file = st.file_uploader("📤 Upload CSV", type="csv")
+        uploaded_file = st.file_uploader(
+        label="",
+        type="csv",
+        label_visibility="collapsed"
+    )
+        if uploaded_file is not None:
+            uploaded_df = pd.read_csv(uploaded_file)
+            uploaded_df.columns = uploaded_df.columns.str.strip()
+            valid_columns = [col for col in columns if col in uploaded_df.columns]
+            st.session_state.table_data = uploaded_df[valid_columns]
+    with col3:
+        pass
 
     # Editable table
     edited_df = st.data_editor(
